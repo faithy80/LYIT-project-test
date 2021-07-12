@@ -3,3 +3,4 @@ home/local_settings.py
 *.sqlite3
 static/
 */__pycache__/
+*.txt
