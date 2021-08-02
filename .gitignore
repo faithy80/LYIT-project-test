@@ -2,5 +2,4 @@ home/local_settings.py
 *.sock
 *.sqlite3
 static/
-*/__pycache__/
-*.txt
+__pycache__
