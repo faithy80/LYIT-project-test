@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import TempHistory
 
-# Register your models here.
+
+class TempHistortyAdmin(admin.ModelAdmin):
+    readonly_fields = ('temp_date',)
+
+admin.site.register(TempHistory, TempHistortyAdmin)
