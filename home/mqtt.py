@@ -6,6 +6,10 @@ django.setup()
 
 import paho.mqtt.client as mqtt
 from dashboard.models import TempHistory
+from dashboard.models import SiteSettings
+
+# Create the default setting if not created already
+SiteSettings.load()
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
