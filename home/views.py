@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render, reverse
-from django.contrib.auth.decorators import login_required
+from dashboard.views import dashboard
+from django.shortcuts import redirect, reverse
+import dashboard.views
 
 
 def index(request):
@@ -12,12 +13,3 @@ def index(request):
         return redirect(reverse('dashboard'))
     else:
         return redirect(reverse('account_login'))
-    
-
-@login_required
-def dashboard(request):
-    """
-    Renders the dashboard page
-    """
-
-    return render(request, 'dashboard.html')
