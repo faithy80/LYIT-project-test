@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block extra_title %}Dashboard{% endblock %}
+
+{% block header %}Welcome, {{ request.user }}!{% endblock %}
+
 {% block content %}
-<h1>Hello, world!</h1>
 {% endblock %}
