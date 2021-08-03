@@ -50,6 +50,7 @@ class SiteSettings(SingletonModel):
     temp_limit = models.FloatField('Temperature limit', default=20.0)
     temp_offset = models.FloatField('Temperature offset', default=1.0)
     auto_mode = models.BooleanField('Automatic mode', default=False)
+    relay_state = models.BooleanField('Relay state', default=False)
 
     class Meta:
         verbose_name = 'Site settings'
