@@ -78,7 +78,7 @@
 
             <p class="sign">New settings:</p>
 
-            <form method="POST" action="{% url 'account_login' %}">
+            <form method="POST" action="{% url 'save_site_settings' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
 
