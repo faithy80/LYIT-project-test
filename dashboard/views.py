@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import SiteSettings, TempHistory
 from .forms import SiteSettingsForm
 
+
 @login_required
 def dashboard(request):
     """
@@ -47,4 +48,22 @@ def save_site_settings(request):
         
         new_settings.save()
     
+    return redirect(reverse('dashboard'))
+
+def relay_on(request):
+    if request.method == 'POST':
+        site_settings = SiteSettings.load()
+
+        site_settings.relay_state = True
+        site_settings.save()
+    
+    return redirect(reverse('dashboard'))
+
+def relay_off(request):
+    if request.method == 'POST':
+        site_settings = SiteSettings.load()
+
+        site_settings.relay_state = False
+        site_settings.save()
+
     return redirect(reverse('dashboard'))

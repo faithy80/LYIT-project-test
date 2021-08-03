@@ -12,7 +12,7 @@
             <h6 class="sign">Actual temperature:</h6>
 
             <p>
-                Main room: 
+                Main room:
 
                 {% if actual_temp %}
 
@@ -47,9 +47,21 @@
 
             </p>
 
-            <button class="btn btn-default btn-sm custom-btn" {% if site_settings.auto_mode %}disabled{% endif %}>Relay on</button>
+            <form method="POST" action="{% url 'relay_on' %}">
+                {% csrf_token %}
 
-            <button class="btn btn-default btn-sm custom-btn" {% if site_settings.auto_mode %}disabled{% endif %}>Relay off</button>
+                <button class="float-start btn btn-default btn-sm custom-btn"
+                    {% if site_settings.auto_mode %}disabled{% endif %}>Relay on</button>
+
+            </form>
+
+            <form method="POST" action="{% url 'relay_off' %}">
+                {% csrf_token %}
+
+                <button class="btn btn-default btn-sm custom-btn"
+                    {% if site_settings.auto_mode %}disabled{% endif %}>Relay off</button>
+
+            </form>
 
         </div>
 
