@@ -5,7 +5,6 @@
 {% block header %}Welcome, {{ request.user }}!{% endblock %}
 
 {% block content %}
-
 <div class="row">
     <div class="col-md-4">
         <div class="boxes">
@@ -132,5 +131,26 @@
     </div>
 
 </div>
+{% endblock %}
 
+{% block post_js %}
+<script>
+    var time = new Date().getTime();
+    console.log('Timer started.')
+    
+    $(document.body).bind("mousemove keypress", function(e) {
+        time = new Date().getTime();
+    });
+
+    function refresh() {
+        if(new Date().getTime() - time >= 30000) 
+            window.location.reload(true);
+        else {
+            console.log('Another 10 seconds countdown started.')
+            setTimeout(refresh, 10000);
+        }
+    }
+
+    setTimeout(refresh, 10000);
+</script>
 {% endblock %}
