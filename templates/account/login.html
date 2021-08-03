@@ -2,14 +2,21 @@
 
 {% block extra_title %}Sign In{% endblock %}
 
-{% block header%}Login{% endblock %}
+{% block header%}Sign into the system{% endblock %}
 
 {% block content %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="primaryAction" type="submit">Sign In</button>
-</form>
+<div class="middle-of-screen">
+    <h6 class="general-text">Please use the login credentials to sign into the system!</h6>
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-default custom-btn" type="submit">Sign In</button>
+
+    </form>
+
+</div>
 
 {% endblock %}

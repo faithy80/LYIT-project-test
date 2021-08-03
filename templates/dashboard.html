@@ -5,4 +5,77 @@
 {% block header %}Welcome, {{ request.user }}!{% endblock %}
 
 {% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="boxes">
+            <h6>Actual temperature:</h6>
+
+            {% if actual_temp %}
+
+            {{ actual_temp}} &deg;C
+
+            {% else %}
+
+            No data available.
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="boxes">
+            <h6>Manual control:</h6>
+
+            <button class="btn btn-default btn-sm custom-btn">Relay on</button>
+
+            <button class="btn btn-default btn-sm custom-btn">Relay off</button>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="boxes">
+            <h6>Automatic control:</h6>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="boxes">
+            <h6>Historical temperature data:</h6>
+
+            <div class="border border-dark overflow-auto listbox">
+
+                {% if historical_temp %}
+
+                {% for item in historical_temp %}
+
+                <p class="ms-auto">{{ item.temp_data }} &deg;C</p>
+
+                <p class="me-auto">{{ item.temp_date }}</p>
+
+                {% endfor %}
+
+                {% else %}
+
+                No data available.
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

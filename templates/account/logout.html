@@ -2,15 +2,20 @@
 
 {% block extra_title %}Logout{% endblock %}
 
-{% block header%}Logout{% endblock %}
+{% block header%}Sign out of the system{% endblock %}
 
 {% block content %}
 
-<p>Are you sure you want to sign out?</p>
+<div class="middle-of-screen">
+  <h6 class="general-text">Are you sure you want to sign out?</h6>
 
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  <button type="submit">Sign Out</button>
-</form>
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+
+    <button class="btn btn-default custom-btn" type="submit">Sign Out</button>
+
+  </form>
+
+</div>
 
 {% endblock %}

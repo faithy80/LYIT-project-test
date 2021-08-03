@@ -21,6 +21,9 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     {% endblock%}
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
     {% block extra_css %}
     {% endblock %}
 
@@ -39,7 +42,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand abs" href="{% url 'index' %}">Smart Home System</a>
 
@@ -59,22 +62,33 @@
 
                 {% endif %}
             </div>
+
         </div>
+
     </nav>
     <!-- ./Navbar -->
 
-    <div class="container-fluid">
+    <div class="container-fluid custom-container">
+
         {% if messages %}
         {% for message in messages %}
-        * {{message}}
+
+        <div class="alert alert-success messages alert-dismissible fade show" role="alert">
+            <strong>* {{message}}</strong>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        </div>
+
         {% endfor %}
         {% endif %}
 
-        <h2>{% block header %}{% endblock %}</h2>
+        <h2 class="header">{% block header %}{% endblock %}</h2>
 
         {% block content %}
         {% endblock %}
     </div>
+
 </body>
 
 </html>
