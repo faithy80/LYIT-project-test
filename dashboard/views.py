@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 from .models import SiteSettings, TempHistory
 from .forms import SiteSettingsForm
+import paho.mqtt.client as mqtt
 
 
 @login_required
@@ -56,7 +57,9 @@ def relay_on(request):
 
         site_settings.relay_state = True
         site_settings.save()
-    
+
+        mqtt_publish('esp/relay','ON')
+
     return redirect(reverse('dashboard'))
 
 def relay_off(request):
@@ -66,4 +69,11 @@ def relay_off(request):
         site_settings.relay_state = False
         site_settings.save()
 
+        mqtt_publish('esp/relay','OFF')
+
     return redirect(reverse('dashboard'))
+
+def mqtt_publish(topic, message):
+    client = mqtt.Client()
+    client.connect("localhost", 1883, 5)
+    client.publish(topic, message)
