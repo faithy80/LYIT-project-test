@@ -9,29 +9,22 @@
 <div class="row">
     <div class="col-md-4">
         <div class="boxes">
-            <h6>Actual temperature:</h6>
+            <h6 class="sign">Actual temperature:</h6>
 
-            {% if actual_temp %}
+            <p>
+                Main room: 
 
-            {{ actual_temp}} &deg;C
+                {% if actual_temp %}
 
-            {% else %}
+                {{ actual_temp.temp_data }}&deg;C
 
-            No data available.
+                {% else %}
 
-            {% endif %}
+                ---&deg;C
 
-        </div>
+                {% endif %}
 
-    </div>
-
-    <div class="col-md-4">
-        <div class="boxes">
-            <h6>Manual control:</h6>
-
-            <button class="btn btn-default btn-sm custom-btn">Relay on</button>
-
-            <button class="btn btn-default btn-sm custom-btn">Relay off</button>
+            </p>
 
         </div>
 
@@ -39,7 +32,59 @@
 
     <div class="col-md-4">
         <div class="boxes">
-            <h6>Automatic control:</h6>
+            <h6 class="sign">Manual control:</h6>
+
+            <p>Central heating relay state:
+                {% if site_settings.relay_state %}
+
+                ON
+
+                {% else %}
+
+                OFF
+
+                {% endif %}
+
+            </p>
+
+            <button class="btn btn-default btn-sm custom-btn" {% if site_settings.auto_mode %}disabled{% endif %}>Relay on</button>
+
+            <button class="btn btn-default btn-sm custom-btn" {% if site_settings.auto_mode %}disabled{% endif %}>Relay off</button>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="boxes">
+            <h6 class="sign">Automatic control:</h6>
+
+            <p>
+                <div>Actual temperature limit: {{ site_settings.temp_limit }}&deg;C</div>
+                <div>Actual temperature offset: {{ site_settings.temp_offset }}&deg;C</div>
+                <div>Automatic mode:
+                    {% if site_settings.auto_mode %}
+
+                    ON
+
+                    {% else %}
+
+                    OFF
+
+                    {% endif %}
+
+                </div>
+            </p>
+
+            <p class="sign">New settings:</p>
+
+            <form method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button class="btn btn-default btn-sm custom-btn" type="submit">Apply</button>
+
+            </form>
 
         </div>
 
@@ -50,7 +95,7 @@
 <div class="row">
     <div class="col">
         <div class="boxes">
-            <h6>Historical temperature data:</h6>
+            <h6 class="sign">Historical temperature data:</h6>
 
             <div class="border border-dark overflow-auto listbox">
 
@@ -58,9 +103,7 @@
 
                 {% for item in historical_temp %}
 
-                <p class="ms-auto">{{ item.temp_data }} &deg;C</p>
-
-                <p class="me-auto">{{ item.temp_date }}</p>
+                <div>{{ item.temp_data }}&deg;C {{ item.temp_date }}</div>
 
                 {% endfor %}
 

@@ -40,20 +40,30 @@
 .boxes {
     margin: 1rem;
     min-height: calc(50vh - 4rem);
+    max-height: calc(50vh - 4rem);
 }
 
 .listbox {
     margin: 2rem;
     width: calc(100% - 2rem);
+    max-height: calc(50vh - 10rem);
 }
 
 @media (max-width: 575px) {
     .boxes {
         min-height: calc(100vh - 5rem);
+        max-height: calc(100vh - 5rem);
     }
 
     .listbox {
         margin: 1rem;
         width: calc(100% - 1rem);
+        max-height: calc(100vh - 10rem);
     }
+}
+
+.sign {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1rem;
 }
