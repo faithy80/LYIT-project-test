@@ -10,6 +10,8 @@
 
   This program was modified by Krisztian Buza to create the Smart Home System project.
   Date: 03 August 2021
+
+  Original source: https://github.com/marvinroger/async-mqtt-client
 */
 
 #include <ESP8266WiFi.h>
