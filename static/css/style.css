@@ -39,8 +39,12 @@
 
 .boxes {
     margin: 1rem;
-    min-height: calc(50vh - 4rem);
-    max-height: calc(50vh - 4rem);
+    min-height: calc(50vh - 2rem);
+}
+
+.history-box {
+    margin: 1rem;
+    max-height: 50vh;
 }
 
 .listbox {
@@ -50,10 +54,13 @@
 }
 
 @media (max-width: 575px) {
+    .boxes {
+        min-height: auto;
+    }
+
     .listbox {
         margin: 1rem;
-        width: calc(100% - 1rem);
-        max-height: calc(100vh - 10rem);
+        width: calc(100vw - 2rem);
     }
 }
 
