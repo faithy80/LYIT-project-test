@@ -53,6 +53,17 @@ def on_message(client, userdata, msg):
             # Call the helper function to publish the OFF MQTT message
             mqtt_publish('esp/relay', 'OFF')
 
+        # In any other cases
+        else:
+            # Refresh relay state (resend MQTT messages to make sure that the system is alive even if the NodeMCU board was restarted)
+            if site_settings.relay_state:
+                # send ON MQTT message if the relay state is true in the database
+                mqtt_publish('esp/relay', 'ON')
+            
+            else:
+                # send ON MQTT message if the relay state is true in the database
+                mqtt_publish('esp/relay', 'OFF')
+
 # Initialise MQTT Client
 client = mqtt.Client(client_id="DJANGO",
                      clean_session=True, userdata=None,
