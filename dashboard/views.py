@@ -11,18 +11,23 @@ def dashboard(request):
     Renders the dashboard page
     """
 
+    # Get the actual temperature data
     actual_temp = TempHistory.objects.latest('temp_date')
 
+    # Get the actual site settings
     site_settings = SiteSettings.load()
 
+    # Fill in the form with the actual site settings data
     form = SiteSettingsForm({
         'temp_limit': site_settings.temp_limit,
         'temp_offset': site_settings.temp_offset,
         'auto_mode': site_settings.auto_mode,
     })
 
+    # Get the list of the historical temperature data
     historical_temp = TempHistory.objects.all().order_by('temp_date')
 
+    # Gather the context
     context = {
         'actual_temp': actual_temp,
         'site_settings': site_settings,
@@ -30,16 +35,23 @@ def dashboard(request):
         'historical_temp': historical_temp,
     }
 
+    # Render the dashboard view
     return render(request, 'dashboard.html', context)
 
 def save_site_settings(request):
+    """
+    Store the site settings into the database and redirects to dashboard
+    """
+
+    # On POST request
     if request.method == 'POST':
+        # Get the previous site settings
         old_settings = SiteSettings.load()
 
+        # Create the new site settings
         new_settings = SiteSettings()
         new_settings.temp_limit = float(request.POST['temp_limit'])
         new_settings.temp_offset = float(request.POST['temp_offset'])
-        new_settings.relay_state = bool(old_settings.relay_state)
         
         if 'auto_mode' in request.POST:
             new_settings.auto_mode = True
@@ -47,33 +59,69 @@ def save_site_settings(request):
         else:
             new_settings.auto_mode = False
         
+        # Keep the relay state
+        new_settings.relay_state = bool(old_settings.relay_state)
+        
+        # Store the new site settings
         new_settings.save()
     
+    # Redirect to dashboard
     return redirect(reverse('dashboard'))
 
 def relay_on(request):
+    """
+    Turns on the relay and redirects to dashboard
+    """
+
+    # On POST request
     if request.method == 'POST':
+        # Get the previous site settings
         site_settings = SiteSettings.load()
 
+        # Modify the relay state
         site_settings.relay_state = True
+
+        # Store the relay state
         site_settings.save()
 
+        # Call the helper function to publish the ON MQTT message
         mqtt_publish('esp/relay','ON')
 
+    # Redirect to dashboard
     return redirect(reverse('dashboard'))
 
 def relay_off(request):
+    """
+    Turns off the relay and redirects to dashboard
+    """
+
+    # On POST request
     if request.method == 'POST':
+        # Get the previous site settings
         site_settings = SiteSettings.load()
 
+        # Modify the relay state
         site_settings.relay_state = False
+
+        # Store the relay state
         site_settings.save()
 
+        # Call the helper function to publish the OFF MQTT message
         mqtt_publish('esp/relay','OFF')
 
+    # Redirect to dashboard
     return redirect(reverse('dashboard'))
 
 def mqtt_publish(topic, message):
+    """
+    Helper function to send MQTT messages to the given topics
+    """
+    
+    # Intitialise the MQTT Client
     client = mqtt.Client()
+
+    # Connect to the MQTT broker
     client.connect("localhost", 1883, 5)
+
+    # Send the given message to the given topics
     client.publish(topic, message)

@@ -1,6 +1,7 @@
 from django.urls import path, include
 from .views import dashboard, save_site_settings, relay_off, relay_on
 
+
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', dashboard, name='dashboard'),
