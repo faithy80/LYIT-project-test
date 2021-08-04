@@ -61,7 +61,7 @@ def on_message(client, userdata, msg):
                 mqtt_publish('esp/relay', 'ON')
             
             else:
-                # send ON MQTT message if the relay state is true in the database
+                # send OFF MQTT message if the relay state is false in the database
                 mqtt_publish('esp/relay', 'OFF')
 
 # Initialise MQTT Client
