@@ -12,8 +12,16 @@ def dashboard(request):
     """
 
     # Get the actual temperature data
-    actual_temp = TempHistory.objects.latest('temp_date')
-
+    try:
+        # Try to get the latest data from the database
+        actual_temp = TempHistory.objects.latest('temp_date')
+    
+    # If there is no data in the database 
+    except:
+        # Set the variable to None
+        # Dashboard template will handle displaying the missing data
+        actual_temp = None
+    
     # Get the actual site settings
     site_settings = SiteSettings.load()
 
@@ -108,6 +116,19 @@ def relay_off(request):
 
         # Call the helper function to publish the OFF MQTT message
         mqtt_publish('esp/relay','OFF')
+
+    # Redirect to dashboard
+    return redirect(reverse('dashboard'))
+
+def delete_all_data(request):
+    """
+    Deletes all the historical temperature data from the database and redirects to dashboard
+    """
+
+    # On POST request
+    if request.method == 'POST':
+        # Gathers all the data and deletes them at once
+        TempHistory.objects.all().delete()
 
     # Redirect to dashboard
     return redirect(reverse('dashboard'))

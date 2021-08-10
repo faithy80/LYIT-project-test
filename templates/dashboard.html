@@ -128,22 +128,32 @@
 
         </div>
 
+        <form method="POST" action="{% url 'delete_all_data' %}">
+            {% csrf_token %}
+
+            <div class="text-center">
+                <button class="btn btn-default btn-danger" type="submit">Delete ALL data</button>
+            </div>
+
+        </form>
+
     </div>
 
 </div>
 {% endblock %}
 
 {% block post_js %}
+
 <script>
     var time = new Date().getTime();
     console.log('Timer started.')
-    
-    $(document.body).bind("mousemove keypress", function(e) {
+
+    $(document.body).bind("mousemove keypress", function (e) {
         time = new Date().getTime();
     });
 
     function refresh() {
-        if(new Date().getTime() - time >= 30000) 
+        if (new Date().getTime() - time >= 30000)
             window.location.reload(true);
         else {
             console.log('Another 10 seconds countdown started.')
@@ -153,4 +163,5 @@
 
     setTimeout(refresh, 10000);
 </script>
+
 {% endblock %}
