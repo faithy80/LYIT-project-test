@@ -32,8 +32,8 @@ def dashboard(request):
         'auto_mode': site_settings.auto_mode,
     })
 
-    # Get the list of the historical temperature data
-    historical_temp = TempHistory.objects.all().order_by('temp_date')
+    # Get the list of the historical temperature data in reversed date order
+    historical_temp = TempHistory.objects.all().order_by('temp_date').reverse()
 
     # Gather the context
     context = {
