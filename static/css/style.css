@@ -50,7 +50,7 @@
 .listbox {
     margin: 2rem;
     width: calc(100% - 2rem);
-    max-height: calc(50vh - 10rem);
+    max-height: calc(50vh * .5);
 }
 
 @media (max-width: 575px) {
@@ -60,7 +60,6 @@
 
     .listbox {
         margin: 1rem;
-        width: calc(100vw - 2rem);
     }
 }
 
