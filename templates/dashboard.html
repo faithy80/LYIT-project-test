@@ -128,11 +128,11 @@
 
         </div>
 
-        <form method="POST" action="{% url 'delete_all_data' %}">
+        <form method="POST" id="delete_all_data" action="{% url 'delete_all_data' %}">
             {% csrf_token %}
 
             <div class="text-center">
-                <button class="btn btn-default btn-danger" type="submit">Delete ALL data</button>
+                <button class="btn btn-default btn-danger" type="button" onclick="confirmMessage()">Delete ALL data</button>
             </div>
 
         </form>
@@ -162,6 +162,15 @@
     }
 
     setTimeout(refresh, 10000);
+</script>
+
+<script>
+    function confirmMessage() {
+        if (confirm("Are you sure you want to delete all data?")) {
+            var form = document.getElementById('delete_all_data');
+            form.submit();
+        }
+    }
 </script>
 
 {% endblock %}
