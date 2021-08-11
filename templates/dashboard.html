@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block extra_title %}Dashboard{% endblock %}
 
 {% block header %}Welcome, {{ request.user }}!{% endblock %}
@@ -132,7 +134,7 @@
             {% csrf_token %}
 
             <div class="text-center">
-                <button class="btn btn-default btn-danger" type="button" onclick="confirmMessage()">Delete ALL data</button>
+                <button class="btn btn-default btn-danger danger-btn" type="button" onclick="confirmMessage()">Delete ALL data</button>
             </div>
 
         </form>
@@ -144,33 +146,6 @@
 
 {% block post_js %}
 
-<script>
-    var time = new Date().getTime();
-    console.log('Timer started.')
-
-    $(document.body).bind("mousemove keypress", function (e) {
-        time = new Date().getTime();
-    });
-
-    function refresh() {
-        if (new Date().getTime() - time >= 30000)
-            window.location.reload(true);
-        else {
-            console.log('Another 10 seconds countdown started.')
-            setTimeout(refresh, 10000);
-        }
-    }
-
-    setTimeout(refresh, 10000);
-</script>
-
-<script>
-    function confirmMessage() {
-        if (confirm("Are you sure you want to delete all data?")) {
-            var form = document.getElementById('delete_all_data');
-            form.submit();
-        }
-    }
-</script>
+<script src="{% static 'js/script.js' %}" defer></script>
 
 {% endblock %}
