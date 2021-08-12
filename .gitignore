@@ -1,5 +1,5 @@
 home/local_settings.py
 *.sock
 *.sqlite3
-static/admin
+staticfiles
 __pycache__
