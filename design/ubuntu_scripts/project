@@ -1,0 +1,14 @@
+server {
+    listen 8000;
+    server_name 192.168.1.100;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/project/home;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/project/home/home.sock;
+    }
+}
