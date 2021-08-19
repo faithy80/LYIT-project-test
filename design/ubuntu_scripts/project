@@ -3,8 +3,8 @@ server {
     server_name 192.168.1.100;
 
     location = /favicon.ico { access_log off; log_not_found off; }
-    location /static/ {
-        root /home/ubuntu/project/home;
+    location /static {
+        alias /home/ubuntu/project/home/staticfiles;
     }
 
     location / {
