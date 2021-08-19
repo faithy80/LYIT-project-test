@@ -56,6 +56,10 @@
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin site</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
                 </ul>
