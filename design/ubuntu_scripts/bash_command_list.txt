@@ -1,0 +1,42 @@
+sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
+
+sudo timedatectl set-timezone Europe/Dublin
+timedatectl
+
+sudo apt install gcc libpq-dev python3-dev python3-pip python3-venv python3-wheel nginx mosquitto -y
+
+mkdir project
+cd project
+python3 -m venv .
+source bin/activate
+cp design/ubuntu_scripts/.bash_aliases ~
+
+git clone https://github.com/faithy80/LYIT-project-test.git home
+
+cd home
+pip3 install -r requirements.txt
+
+mv home/local_settings_example.py home/local_settings.py
+nano home/local_settings.py
+
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+python3 manage.py createsuperuser
+
+python3 manage.py collectstatic
+
+python3 manage.py runserver 0.0.0.0:8000
+
+sudo systemctl status mosquitto.service
+sudo systemctl status nginx.service
+
+sudo cp design/ubuntu_scripts/gunicorn.service /etc/systemd/system/
+
+sudo systemctl start gunicorn.service
+sudo systemctl enable gunicorn.service
+sudo systemctl status gunicorn.service
+
+sudo cp design/ubuntu_scripts/project /etc/nginx/sites-available/
+sudo ln -s /etc/nginx/sites-available/project /etc/nginx/sites-enabled/
+sudo systemctl restart nginx.service
