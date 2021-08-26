@@ -38,5 +38,5 @@ class TempHistoryTestCase(TestCase):
             self.assertFalse(data['auto_mode'])
             self.assertFalse(data['relay_state'])
 
-         # Test if model is an instance of TempHistory
+         # Test if model is an instance of SiteSettings
         self.assertTrue(isinstance(settings, SiteSettings))
