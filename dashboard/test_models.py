@@ -4,8 +4,8 @@ from .models import TempHistory, SiteSettings
 
 class TempHistoryTestCase(TestCase):
     
-    def test_temp_history_creation(self):
-        print('\nCreating TempHistory model...')
+    def test_temp_history_model(self):
+        print('\nTesting TempHistory model...')
 
         # Creating the object from the model
         model = TempHistory.objects.create(
@@ -22,8 +22,10 @@ class TempHistoryTestCase(TestCase):
         # Test if model is an instance of TempHistory
         self.assertTrue(isinstance(model, TempHistory))
 
-    def test_site_settings_creation(self):
-        print('\nCreating SiteSettings object using the default parameters...')
+class SiteSettingsTestCase(TestCase):
+
+    def test_site_settings_model(self):
+        print('\nTesting SiteSettings model...')
 
         # Creating the object using the default parameters
         settings = SiteSettings.load()
