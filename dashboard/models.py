@@ -13,6 +13,9 @@ class TempHistory(models.Model):
         verbose_name = 'Temperature'
         verbose_name_plural = 'Temperatures'
 
+    def get_time_data(self):
+        return self.temp_data
+
     def __str__(self):
         """
         Unicode representation of temperature history
@@ -55,6 +58,18 @@ class SiteSettings(SingletonModel):
     class Meta:
         verbose_name = 'Site settings'
         verbose_name_plural = 'Site settings'
+
+    def get_temp_limit(self):
+        return self.temp_limit
+
+    def get_temp_offset(self):
+        return self.temp_offset
+
+    def get_auto_mode(self):
+        return self.auto_mode
+
+    def get_relay_state(self):
+        return self.relay_state
 
     def __str__(self):
         """
