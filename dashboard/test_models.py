@@ -13,7 +13,7 @@ class TempHistoryTestCase(TestCase):
         )
 
         # Get the created data as a query
-        data_query = TempHistory.objects.filter(pk=1).values('temp_data')
+        data_query = TempHistory.objects.filter(pk=1).values()
         
         # Fetch and test the value
         for data in data_query:
