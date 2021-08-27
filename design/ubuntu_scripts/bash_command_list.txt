@@ -1,3 +1,6 @@
+IMPLEMENTATION
+==============
+
 sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
 
 sudo timedatectl set-timezone Europe/Dublin
@@ -40,3 +43,9 @@ sudo systemctl status gunicorn.service
 sudo cp design/ubuntu_scripts/project /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/project /etc/nginx/sites-enabled/
 sudo systemctl restart nginx.service
+
+TESTING
+=======
+
+coverage run manage.py test
+coverage html
